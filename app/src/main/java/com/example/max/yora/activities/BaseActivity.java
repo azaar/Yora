@@ -10,8 +10,8 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected YoraApplication application;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
 
         application = (YoraApplication) getApplication();
     }

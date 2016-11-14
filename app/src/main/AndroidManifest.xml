@@ -18,6 +18,8 @@
 
         <activity android:name=".activities.LoginActivity"/>
 
+        <activity android:name=".activities.LoginNarrowActivity"/>
+
     </application>
 
 </manifest>

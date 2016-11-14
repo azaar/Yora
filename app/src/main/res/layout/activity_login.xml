@@ -5,12 +5,45 @@
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
 
+    <include
+        layout="@layout/include_login_header"
+        android:id="@+id/include_login_header"/>
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:onClick="doLogin"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/include_login_header"
+        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yora! Log in"
+            android:id="@+id/activity_login_login"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yora! Register"
+            android:id="@+id/activity_login_register"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yora! Facebook Log in"
+            android:id="@+id/activity_login_facebook"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yora! Google Log in"
+            android:id="@+id/activity_login_google"/>
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>
