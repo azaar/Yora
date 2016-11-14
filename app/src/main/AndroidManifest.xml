@@ -9,14 +9,14 @@
         android:theme="@style/AppTheme"
         android:name=".infrastructure.YoraApplication">
 
-        <activity android:name="com.example.max.activities.MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.max.activities.LoginActivity"/>
+        <activity android:name=".activities.LoginActivity"/>
 
     </application>
 

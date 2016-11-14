@@ -1,4 +1,4 @@
-package com.example.max.activities;
+package com.example.max.yora.activities;
 
 
 import android.os.Bundle;
