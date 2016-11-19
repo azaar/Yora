@@ -22,9 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity{
         application = (YoraApplication) getApplication();
     }
 
-    /*
-
-     */
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
@@ -38,5 +35,9 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected void setNavDrawer(NavDrawer drawer) {
         this.navDrawer = drawer;
         this.navDrawer.create();
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
     }
 }
