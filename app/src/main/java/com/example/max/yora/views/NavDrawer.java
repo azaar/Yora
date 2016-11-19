@@ -57,9 +57,9 @@ public class NavDrawer {
 
     public void setOpen(boolean isOpen) {
         if (isOpen) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
             drawerLayout.openDrawer(GravityCompat.START);
+        } else {
+            drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 
@@ -115,6 +115,8 @@ public class NavDrawer {
             }
 
             view = inflater.inflate(R.layout.list_item_nav_drawer, container);
+            view.setOnClickListener(this);
+
             icon = (ImageView) view.findViewById(R.id.list_item_nav_drawer_icon);
             textView = (TextView) view.findViewById(R.id.list_item_nav_drawer_text);
             badgeTextView = (TextView) view.findViewById(R.id.list_item_nav_drawer_badge);

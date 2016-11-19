@@ -11,9 +11,11 @@ public class MainNavDrawer extends NavDrawer {
     public MainNavDrawer(final BaseActivity activity) {
         super(activity);
 
-        addItem(new ActivityNavDrawerItem(MainActivity.class, "Inbox", null, R.drawable.ic_email, 0));
+        addItem(new ActivityNavDrawerItem(
+                MainActivity.class, "Inbox", null, R.drawable.ic_email, R.id.include_main_nav_drawer_topItems));
 
-        addItem(new BasicNavDrawerItem("Logout", null, R.drawable.ic_backspace, 0) {
+        addItem(new BasicNavDrawerItem(
+                "Logout", null, R.drawable.ic_backspace, R.id.include_main_nav_drawer_bottomItems) {
             @Override
             public void onClick(View v) {
                 Toast.makeText(activity, "You have logged out",Toast.LENGTH_SHORT).show();
