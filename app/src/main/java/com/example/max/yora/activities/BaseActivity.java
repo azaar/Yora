@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.example.max.yora.R;
@@ -16,12 +17,15 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected YoraApplication application;
     protected Toolbar toolbar;
     protected NavDrawer navDrawer;
+    protected boolean isTablet;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-
         application = (YoraApplication) getApplication();
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        isTablet = (metrics.widthPixels / metrics.density) >= 600;
     }
 
     @Override
