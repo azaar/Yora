@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.max.yora">
+    
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -29,6 +31,8 @@
         <activity android:name=".activities.ContactsActivity"/>
 
         <activity android:name=".activities.SentMessagesActivity"/>
+
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
     </application>
 
