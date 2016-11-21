@@ -6,11 +6,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.max.yora.R;
+import com.example.max.yora.infrastructure.User;
 import com.example.max.yora.views.MainNavDrawer;
 import com.soundcloud.android.crop.Crop;
 
@@ -20,6 +25,17 @@ import java.util.List;
 
 public class ProfileActivity extends BaseAuthenticatedActivity implements View.OnClickListener {
     private static final int REQUEST_SELECT_IMAGE = 100;
+
+    private static final int STATE_VIEWING = 1;
+    private static final int STATE_EDITING = 2;
+
+    private static final String BUNDLE_STATE = "BUNDLE_STATE";
+
+    private int currentState;
+    private EditText displayNameText;
+    private EditText emailText;
+    private View changeAvatarButton;
+    private ActionMode editProfileActionMode;
     private ImageView avatarView;
     private View avatarProgressFrame;
     private File tempOutputFile;
@@ -43,13 +59,28 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
 
         avatarView = (ImageView) findViewById(R.id.activity_profile_avatar);
         avatarProgressFrame = findViewById(R.id.activity_profile_avatarProgressFrame);
+        changeAvatarButton = findViewById(R.id.activity_profile_changeAvatar);
+        displayNameText = (EditText) findViewById(R.id.activity_profile_displayName);
+        emailText = (EditText) findViewById(R.id.activity_profile_email);
         tempOutputFile = new File(getExternalCacheDir(), "temp-image.jpg");
 
         avatarView.setOnClickListener(this);
-        findViewById(R.id.activity_profile_changeAvatar).setOnClickListener(this);
-
+        changeAvatarButton.setOnClickListener(this);
         avatarProgressFrame.setVisibility(View.GONE);
 
+        User user = application.getAuth().getUser();
+        getSupportActionBar().setTitle(user.getDisplayName());
+
+        if (savedState == null) {
+
+            displayNameText.setText(user.getDisplayName());
+            emailText.setText(user.getEmail());
+            changeState(STATE_VIEWING);
+
+        } else {
+
+            changeState(savedState.getInt(BUNDLE_STATE));
+        }
     }
 
     @Override
@@ -58,6 +89,12 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
         if (viewId == R.id.activity_profile_changeAvatar || viewId == R.id.activity_profile_avatar) {
             changeAvatar();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(BUNDLE_STATE, currentState);
     }
 
     private void changeAvatar() {
@@ -111,7 +148,94 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
             avatarView.setImageResource(0);
             avatarView.setImageURI(Uri.fromFile(tempOutputFile));
         }
+    }
 
-        //super.onActivityResult(requestCode, resultCode, data);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_profile, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        if(itemId == R.id.activity_profile_menuEdit) {
+            changeState(STATE_EDITING);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void changeState(int state) {
+        if (state == currentState) {
+            return;
+        }
+
+        currentState = state;
+
+        if (state == STATE_VIEWING) {
+
+            displayNameText.setEnabled(false);
+            emailText.setEnabled(false);
+            changeAvatarButton.setVisibility(View.VISIBLE);
+
+            if (editProfileActionMode != null) {
+                editProfileActionMode.finish();
+                editProfileActionMode = null;
+            }
+
+
+        } else if (state == STATE_EDITING) {
+
+            displayNameText.setEnabled(true);
+            emailText.setEnabled(true);
+            changeAvatarButton.setVisibility(View.GONE);
+
+            editProfileActionMode = toolbar.startActionMode(new EditProfileActionCallback());
+
+        } else {
+            throw new IllegalArgumentException("Invalid state: " + state);
+        }
+    }
+
+    private class EditProfileActionCallback implements ActionMode.Callback {
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            getMenuInflater().inflate(R.menu.activity_profile_edit, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.activity_profile_menuDone) {
+                User user = application.getAuth().getUser();
+                user.setDisplayName(displayNameText.getText().toString());
+                user.setEmail(emailText.getText().toString());
+
+                changeState(STATE_VIEWING);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+
+            if(currentState != STATE_VIEWING) {
+                changeState(STATE_VIEWING);
+            }
+        }
     }
 }
