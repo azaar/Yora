@@ -1,5 +1,6 @@
 package com.example.max.yora.activities;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.max.yora.R;
+import com.example.max.yora.dialogs.ChangePasswordDialog;
 import com.example.max.yora.infrastructure.User;
 import com.example.max.yora.views.MainNavDrawer;
 import com.soundcloud.android.crop.Crop;
@@ -161,8 +163,20 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
         int itemId = item.getItemId();
 
         if(itemId == R.id.activity_profile_menuEdit) {
+
             changeState(STATE_EDITING);
             return true;
+
+        } else if (itemId == R.id.activity_profile_menuChangePassword) {
+
+            FragmentTransaction transaction = getFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null);
+
+            ChangePasswordDialog dialog = new ChangePasswordDialog();
+            dialog.show(transaction, null);
+            return true;
+
         }
 
         return false;
