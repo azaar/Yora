@@ -2,17 +2,22 @@ package com.example.max.yora.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.max.yora.R;
+import com.example.max.yora.services.Account;
+
+import org.greenrobot.eventbus.Subscribe;
 
 public class ChangePasswordDialog extends BaseDialogFragment implements View.OnClickListener {
     private EditText currentPassword;
     private EditText newPassword;
     private EditText confirmNewPassword;
+    private Dialog progressDialog;
 
 
     @Override
@@ -42,8 +47,31 @@ public class ChangePasswordDialog extends BaseDialogFragment implements View.OnC
 
     @Override
     public void onClick(View view) {
-        // TODO: Send new password to server
-        Toast.makeText(getActivity(), "Password Updated", Toast.LENGTH_SHORT).show();
-        dismiss();
+        progressDialog = new ProgressDialog.Builder(getActivity())
+                .setTitle("Change Password")
+                .setCancelable(false)
+                .show();
+
+        bus.post(new Account.ChangePasswordRequest(
+                currentPassword.getText().toString(),
+                newPassword.getText().toString(),
+                confirmNewPassword.getText().toString()));
+
+    }
+
+    @Subscribe
+    public void passwordChanged(Account.ChangePasswordResponse response) {
+        if (response.didSucceed()) {
+            Toast.makeText(getActivity(), "Password updated", Toast.LENGTH_LONG).show();
+            dismiss();
+            application.getAuth().getUser().setHasPassword(true);
+            return;
+        }
+
+        currentPassword.setError(response.getPropertyError("currentPassword"));
+        newPassword.setError(response.getPropertyError("newPassword"));
+        confirmNewPassword.setError(response.getPropertyError("confirmPassword"));
+
+        response.showErrorToast(getActivity());
     }
 }
