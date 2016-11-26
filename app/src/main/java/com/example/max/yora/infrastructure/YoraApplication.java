@@ -2,8 +2,15 @@ package com.example.max.yora.infrastructure;
 
 import android.app.Application;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class YoraApplication extends Application {
     private Auth auth;
+    private EventBus bus;
+
+    public YoraApplication() {
+        bus = EventBus.getDefault();
+    }
 
     @Override
     public void onCreate() {
@@ -13,5 +20,9 @@ public class YoraApplication extends Application {
 
     public Auth getAuth() {
         return auth;
+    }
+
+    public EventBus getBus() {
+        return bus;
     }
 }

@@ -18,8 +18,11 @@ import android.widget.RelativeLayout;
 import com.example.max.yora.R;
 import com.example.max.yora.dialogs.ChangePasswordDialog;
 import com.example.max.yora.infrastructure.User;
+import com.example.max.yora.services.Account;
 import com.example.max.yora.views.MainNavDrawer;
 import com.soundcloud.android.crop.Crop;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -146,10 +149,15 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
                     .start(this);
 
         } else if (requestCode == Crop.REQUEST_CROP) {
-            // TODO: Send tempFileUri to server as nav avatar
-            avatarView.setImageResource(0);
-            avatarView.setImageURI(Uri.fromFile(tempOutputFile));
+            avatarProgressFrame.setVisibility(View.VISIBLE);
+            bus.post(new Account.ChangeAvatarRequest(Uri.fromFile(tempOutputFile)));
         }
+    }
+
+    @Subscribe
+    public void onAvatarUpdated(Account.ChangeAvatarResponse response) {
+        avatarProgressFrame.setVisibility(View.GONE);
+        // TODO: handle errors
     }
 
     @Override

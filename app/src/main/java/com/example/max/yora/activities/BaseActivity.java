@@ -13,19 +13,32 @@ import com.example.max.yora.R;
 import com.example.max.yora.infrastructure.YoraApplication;
 import com.example.max.yora.views.NavDrawer;
 
+import org.greenrobot.eventbus.EventBus;
+
 public abstract class BaseActivity extends AppCompatActivity{
     protected YoraApplication application;
     protected Toolbar toolbar;
     protected NavDrawer navDrawer;
     protected boolean isTablet;
+    protected EventBus bus;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         application = (YoraApplication) getApplication();
 
+        bus = application.getBus();
+
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         isTablet = (metrics.widthPixels / metrics.density) >= 600;
+
+        bus.register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bus.unregister(this);
     }
 
     @Override
