@@ -138,7 +138,7 @@ public class NavDrawer {
         public void setSelected(boolean isSelected) {
             if (isSelected) {
                 view.setBackgroundResource(R.drawable.list_item_nav_drawer_selected_item_background);
-                textView.setTextColor(navDrawer.activity.getResources().getColor(R.color.list_item_nav_drawer_selected_item_text_color));
+                textView.setTextColor(navDrawer.activity.getResources().getColor(R.color.colorLightBlue));
             } else {
                 view.setBackground(null);
                 textView.setTextColor(defaultTextColor);

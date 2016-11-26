@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <EditText
+        android:id="@+id/fragment_login_userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="UserName"
         android:maxLines="1"
-        android:id="@+id/fragment_login_userName"
-        android:layout_marginBottom="8dp"/>
+        />
 
     <EditText
+        android:id="@+id/fragment_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/fragment_login_userName"
         android:hint="Password"
         android:maxLines="1"
         android:inputType="textPassword"
-        android:id="@+id/fragment_login_password"
-        android:layout_marginBottom="8dp"
-        android:layout_below="@id/fragment_login_userName"/>
+        />
 
     <Button
+        android:id="@+id/fragment_login_loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log In"
         android:layout_below="@id/fragment_login_password"
-        android:background="@color/colorPrimaryDark"
+        android:text="@string/log_in"
+        android:background="@color/colorPrimaryDarkBlue"
         android:textColor="@color/colorWhite"
-        android:id="@+id/fragment_login_loginButton"/>
+        />
 
 </RelativeLayout>

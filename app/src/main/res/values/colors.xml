@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!-- grayscale -->
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightGrey">#DDDDDD</color>
+    <color name="colorLightGreyTransparent">#8AFFFFFF</color>
+    <color name="colorGrey">#444444</color>
+    <color name="colorGreyTransparent">#AA000000</color>
+    <color name="colorBlackTransparent">#DE000000</color>
+
+    <!-- basic colors -->
+    <color name="colorPrimaryBlue">#3F51B5</color>
+    <color name="colorPrimaryDarkBlue">#303F9F</color>
+    <color name="colorAccentPink">#FF4081</color>
     <color name="colorLightBlue">#2196F3</color>
-    <color name="list_item_nav_drawer_selected_item_text_color">#2196F3</color>
+    <color name="colorWhiteBlue">#E3F2FD</color>
+
 </resources>
