@@ -24,7 +24,7 @@ public class ChangePasswordDialog extends BaseDialogFragment implements View.OnC
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_change_password, null, false);
 
-        currentPassword = (EditText) dialogView.findViewById(R.id.dialog_change_password_confirmNewPassword);
+        currentPassword = (EditText) dialogView.findViewById(R.id.dialog_change_password_currentPassword);
         newPassword = (EditText) dialogView.findViewById(R.id.dialog_change_password_newPassword);
         confirmNewPassword = (EditText) dialogView.findViewById(R.id.dialog_change_password_confirmNewPassword);
 
@@ -61,6 +61,9 @@ public class ChangePasswordDialog extends BaseDialogFragment implements View.OnC
 
     @Subscribe
     public void passwordChanged(Account.ChangePasswordResponse response) {
+        progressDialog.dismiss();
+        progressDialog = null;
+
         if (response.didSucceed()) {
             Toast.makeText(getActivity(), "Password updated", Toast.LENGTH_LONG).show();
             dismiss();
@@ -68,9 +71,11 @@ public class ChangePasswordDialog extends BaseDialogFragment implements View.OnC
             return;
         }
 
+
+
         currentPassword.setError(response.getPropertyError("currentPassword"));
         newPassword.setError(response.getPropertyError("newPassword"));
-        confirmNewPassword.setError(response.getPropertyError("confirmPassword"));
+        confirmNewPassword.setError(response.getPropertyError("confirmNewPassword"));
 
         response.showErrorToast(getActivity());
     }

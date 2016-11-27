@@ -52,7 +52,7 @@ public abstract class ServiceResponse {
     }
 
     public boolean didSucceed() {
-        return (operationError == null || operationError.isEmpty() && (propertyErrors.size() == 0));
+        return (operationError == null || operationError.isEmpty()) && (propertyErrors.size() == 0);
     }
 
     public void showErrorToast(Context context) {
