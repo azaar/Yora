@@ -2,14 +2,14 @@ package com.example.max.yora.infrastructure;
 
 import android.app.Application;
 
-import org.greenrobot.eventbus.EventBus;
+import com.squareup.otto.Bus;
 
 public class YoraApplication extends Application {
     private Auth auth;
-    private EventBus bus;
+    private Bus bus;
 
     public YoraApplication() {
-        bus = EventBus.getDefault();
+        bus = new Bus();
     }
 
     @Override
@@ -22,7 +22,7 @@ public class YoraApplication extends Application {
         return auth;
     }
 
-    public EventBus getBus() {
+    public Bus getBus() {
         return bus;
     }
 }

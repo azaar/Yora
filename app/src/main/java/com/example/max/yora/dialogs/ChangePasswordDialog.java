@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.example.max.yora.R;
 import com.example.max.yora.services.Account;
+import com.squareup.otto.Subscribe;
 
-import org.greenrobot.eventbus.Subscribe;
 
 public class ChangePasswordDialog extends BaseDialogFragment implements View.OnClickListener {
     private EditText currentPassword;

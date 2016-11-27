@@ -23,8 +23,7 @@ import com.example.max.yora.infrastructure.User;
 import com.example.max.yora.services.Account;
 import com.example.max.yora.views.MainNavDrawer;
 import com.soundcloud.android.crop.Crop;
-
-import org.greenrobot.eventbus.Subscribe;
+import com.squareup.otto.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -4,12 +4,11 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 
 import com.example.max.yora.infrastructure.YoraApplication;
-
-import org.greenrobot.eventbus.EventBus;
+import com.squareup.otto.Bus;
 
 public abstract class BaseDialogFragment extends DialogFragment {
     protected YoraApplication application;
-    protected EventBus bus;
+    protected Bus bus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

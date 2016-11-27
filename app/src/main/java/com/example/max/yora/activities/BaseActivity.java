@@ -12,15 +12,15 @@ import android.view.View;
 import com.example.max.yora.R;
 import com.example.max.yora.infrastructure.YoraApplication;
 import com.example.max.yora.views.NavDrawer;
+import com.squareup.otto.Bus;
 
-import org.greenrobot.eventbus.EventBus;
 
 public abstract class BaseActivity extends AppCompatActivity{
     protected YoraApplication application;
     protected Toolbar toolbar;
     protected NavDrawer navDrawer;
     protected boolean isTablet;
-    protected EventBus bus;
+    protected Bus bus;
 
     @Override
     protected void onCreate(Bundle savedState) {

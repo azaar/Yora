@@ -4,12 +4,12 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.example.max.yora.infrastructure.YoraApplication;
+import com.squareup.otto.Bus;
 
-import org.greenrobot.eventbus.EventBus;
 
 public abstract class BaseFragment extends Fragment{
     protected YoraApplication application;
-    protected EventBus bus;
+    protected Bus bus;
 
     @Override
     public void onCreate(Bundle savedState) {
