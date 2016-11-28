@@ -31,6 +31,15 @@ public abstract class BaseInMemoryService {
         handler.postDelayed(runnable, delay);
     }
 
+    protected void invokeDelayed(Runnable runnable) {
+
+        long delay = (long)(random.nextDouble() * (1000)) + 1000;
+        handler.postDelayed(runnable, delay);
+    }
+
+
+
+
     protected void postDelayed(final Object event, long millisecondMin, long millisecondMax) {
         invokeDelayed(new Runnable() {
             @Override
