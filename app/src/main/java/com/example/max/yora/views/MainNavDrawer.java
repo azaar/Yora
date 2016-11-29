@@ -12,6 +12,8 @@ import com.example.max.yora.activities.MainActivity;
 import com.example.max.yora.activities.ProfileActivity;
 import com.example.max.yora.activities.SentMessagesActivity;
 import com.example.max.yora.infrastructure.User;
+import com.example.max.yora.services.Account;
+import com.squareup.otto.Subscribe;
 
 
 public class MainNavDrawer extends NavDrawer {
@@ -49,5 +51,11 @@ public class MainNavDrawer extends NavDrawer {
 
         // TODO: change avatarImage to avatarUrl from loggedInUser
 
+    }
+
+    @Subscribe
+    public void onUserDetailsUpdated(Account.UserDetailsUpdatedEvent event) {
+        // TODO: update avatar URL
+        displayNameText.setText(event.User.getDisplayName());
     }
 }
