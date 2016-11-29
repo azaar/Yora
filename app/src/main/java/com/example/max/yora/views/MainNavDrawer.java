@@ -39,6 +39,7 @@ public class MainNavDrawer extends NavDrawer {
                 "Logout", null, R.drawable.ic_backspace, R.id.include_main_nav_drawer_bottomItems) {
             @Override
             public void onClick(View v) {
+                activity.getYoraApplication().getAuth().logout();
                 Toast.makeText(activity, "You have logged out",Toast.LENGTH_SHORT).show();
             }
         });
