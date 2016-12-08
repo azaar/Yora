@@ -8,5 +8,6 @@ public class Module {
     public static void register(YoraApplication application) {
         Log.e("Module", "IN MEMORY REGISTER METHOD CALLED");
         new InMemoryAccountService(application);
+        new InMemoryContactsService(application);
     }
 }
