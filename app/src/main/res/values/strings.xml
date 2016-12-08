@@ -13,4 +13,6 @@
     <string name="sent_messages">Sent Messages</string>
     <string name="log_in">Log In</string>
     <string name="yora">YORA!</string>
+    <string name="contact_activity">Contact Activity</string>
+    <string name="add_contact_activity">Add Contact Activity</string>
 </resources>
