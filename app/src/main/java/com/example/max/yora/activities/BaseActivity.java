@@ -17,6 +17,8 @@ import com.squareup.otto.Bus;
 
 
 public abstract class BaseActivity extends AppCompatActivity{
+    private boolean isRegisteredWithBus;
+
     protected YoraApplication application;
     protected Toolbar toolbar;
     protected NavDrawer navDrawer;
@@ -35,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         isTablet = (metrics.widthPixels / metrics.density) >= 600;
 
         bus.register(this);
+        isRegisteredWithBus = true;
     }
 
     public ActionScheduler getScheduler() {
@@ -56,9 +59,24 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bus.unregister(this);
+
+        if (isRegisteredWithBus) {
+            bus.unregister(this);
+            isRegisteredWithBus = false;
+        }
+
         if (navDrawer != null) {
             navDrawer.destroy();
+        }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        if (isRegisteredWithBus) {
+            bus.unregister(this);
+            isRegisteredWithBus = false;
         }
     }
 
