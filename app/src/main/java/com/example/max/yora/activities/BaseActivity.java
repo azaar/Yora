@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.example.max.yora.R;
+import com.example.max.yora.infrastructure.ActionScheduler;
 import com.example.max.yora.infrastructure.YoraApplication;
 import com.example.max.yora.views.NavDrawer;
 import com.squareup.otto.Bus;
@@ -21,18 +22,35 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected NavDrawer navDrawer;
     protected boolean isTablet;
     protected Bus bus;
+    protected ActionScheduler scheduler;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         application = (YoraApplication) getApplication();
-
         bus = application.getBus();
+        scheduler = new ActionScheduler(application);
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         isTablet = (metrics.widthPixels / metrics.density) >= 600;
 
         bus.register(this);
+    }
+
+    public ActionScheduler getScheduler() {
+        return scheduler;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        scheduler.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        scheduler.onPause();
     }
 
     @Override
