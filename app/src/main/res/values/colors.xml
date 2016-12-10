@@ -18,6 +18,7 @@
     <color name="colorCyan">#00BCD4</color>
     <color name="contacts_pending_contact_requests">#607D8B</color>
     <color name="contacts_contacts">#00BCD4</color>
+    <color name="contact_requests_progressFrame">#CFD9DC</color>
 
 
 </resources>
