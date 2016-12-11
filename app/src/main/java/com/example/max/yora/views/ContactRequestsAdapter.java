@@ -44,10 +44,11 @@ public class ContactRequestsAdapter extends ArrayAdapter<ContactRequest> {
                 request.getCreatedAt().getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
 
+
         if (request.isFromUs()) {
-            view.CreatedAt.setText("Sent at " + createdAt);
+            view.CreatedAt.setText(getContext().getResources().getString(R.string.sent_at) + createdAt);
         } else {
-            view.CreatedAt.setText("Received " + createdAt);
+            view.CreatedAt.setText(getContext().getResources().getString(R.string.recieved) + createdAt);
         }
 
         return convertView;

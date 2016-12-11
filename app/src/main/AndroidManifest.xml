@@ -30,6 +30,10 @@
 
         <activity android:name=".activities.ContactsActivity"/>
 
+        <activity android:name=".activities.ContactActivity"/>
+
+        <activity android:name=".activities.AddContactActivity"/>
+
         <activity android:name=".activities.SentMessagesActivity"/>
 
         <activity android:name=".activities.AuthenticationActivity"/>

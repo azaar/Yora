@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- TODO: Refactor color names-->
+
     <!-- grayscale -->
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightGrey">#DDDDDD</color>
@@ -8,6 +10,7 @@
     <color name="colorGrey">#444444</color>
     <color name="colorGreyTransparent">#AA000000</color>
     <color name="colorBlackTransparent">#DE000000</color>
+    <color name="black">#000000</color>
 
     <!-- basic colors -->
     <color name="colorPrimaryBlue">#3F51B5</color>
@@ -19,6 +22,8 @@
     <color name="contacts_pending_contact_requests">#607D8B</color>
     <color name="contacts_contacts">#00BCD4</color>
     <color name="contact_requests_progressFrame">#CFD9DC</color>
+    <color name="material_cyan_50">#E0F7FA</color>
+    <color name="material_cyan_100">#B2EBF2</color>
 
 
 </resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -12,4 +11,33 @@
         android:layout_height="match_parent"
         />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/fragment_contacts_emptyList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/material_cyan_50"
+        android:text="@string/you_have_no_contacts"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        />
+
+    <FrameLayout
+        android:id="@+id/fragment_contacts_progressFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/material_cyan_100"
+        android:clickable="true"
+        >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            />
+
+    </FrameLayout>
+
+</FrameLayout>
