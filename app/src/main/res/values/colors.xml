@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- TODO: Refactor color names-->
-
     <!-- grayscale -->
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorLightGrey">#DDDDDD</color>
-    <color name="colorLightGreyTransparent">#8AFFFFFF</color>
-    <color name="colorGrey">#444444</color>
-    <color name="colorGreyTransparent">#AA000000</color>
-    <color name="colorBlackTransparent">#DE000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey_light">#DDDDDD</color>
+    <color name="grey_light_transparent">#8AFFFFFF</color>
+    <color name="grey">#444444</color>
+    <color name="grey_transparent">#AA000000</color>
+    <color name="black_transparent">#DE000000</color>
     <color name="black">#000000</color>
 
+    <!-- Material Design Colors -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
     <!-- basic colors -->
-    <color name="colorPrimaryBlue">#3F51B5</color>
-    <color name="colorPrimaryDarkBlue">#303F9F</color>
-    <color name="colorAccentPink">#FF4081</color>
-    <color name="colorLightBlue">#2196F3</color>
-    <color name="colorWhiteBlue">#E3F2FD</color>
-    <color name="colorCyan">#00BCD4</color>
-    <color name="contacts_pending_contact_requests">#607D8B</color>
-    <color name="contacts_contacts">#00BCD4</color>
-    <color name="contact_requests_progressFrame">#CFD9DC</color>
+    <color name="material_blue_50">#E3F2FD</color>
+    <color name="material_blue_500">#2196F3</color>
+    <color name="material_blue_grey_100">#CFD8DC</color>
+    <color name="material_blue_grey_500">#607D8B</color>
     <color name="material_cyan_50">#E0F7FA</color>
     <color name="material_cyan_100">#B2EBF2</color>
-
+    <color name="material_cyan_500">#00BCD4</color>
 
 </resources>

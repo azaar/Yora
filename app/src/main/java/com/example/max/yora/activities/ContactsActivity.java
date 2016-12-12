@@ -31,13 +31,13 @@ public class ContactsActivity extends BaseAuthenticatedActivity implements Adapt
 
         adapter.add(new ContactsSpinnerItem(
                 getString(R.string.contacts),
-                getResources().getColor(R.color.contacts_contacts),
+                getResources().getColor(R.color.material_cyan_500),
                 ContactsFragment.class));
 
 
         adapter.add(new ContactsSpinnerItem(
                 getString(R.string.pending_contact_requests),
-                getResources().getColor(R.color.contacts_pending_contact_requests),
+                getResources().getColor(R.color.material_blue_grey_500),
                 PendingContactRequestsFragment.class));
 
 

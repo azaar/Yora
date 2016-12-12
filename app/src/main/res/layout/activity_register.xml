@@ -49,9 +49,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/activity_register_password"
-            android:background="@color/colorPrimaryDarkBlue"
+            android:background="@color/colorPrimaryDark"
             android:text="Register"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/white"
             />
 
         <ProgressBar

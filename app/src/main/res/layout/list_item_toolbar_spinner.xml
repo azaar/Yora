@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingStart="18dp"
     android:paddingEnd="18dp"
-    android:textColor="@color/colorWhite"
+    android:textColor="@color/white"
     android:textSize="18sp"
     android:textStyle="normal"
     android:drawablePadding="4dp"

@@ -25,7 +25,7 @@
                 android:id="@+id/activity_profile_avatar"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
-                android:background="@color/colorLightGrey"
+                android:background="@color/grey_light"
                 />
 
             <TextView
@@ -36,8 +36,8 @@
                 android:layout_alignEnd="@id/activity_profile_avatar"
                 android:layout_alignStart="@id/activity_profile_avatar"
                 android:text="@string/tap_to_change"
-                android:background="@color/colorLightBlue"
-                android:textColor="@color/colorWhite"
+                android:background="@color/material_blue_500"
+                android:textColor="@color/white"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:paddingTop="8dp"
@@ -52,7 +52,7 @@
                 android:layout_alignBottom="@id/activity_profile_changeAvatar"
                 android:layout_alignStart="@id/activity_profile_avatar"
                 android:layout_alignEnd="@id/activity_profile_avatar"
-                android:background="@color/colorGreyTransparent"
+                android:background="@color/grey_transparent"
                 android:clickable="true"
                 >
 

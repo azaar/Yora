@@ -8,13 +8,13 @@
     android:layout_gravity="start"
     android:minWidth="300dp"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
+    android:background="@color/white"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryBlue"
+        android:background="@color/colorPrimary"
         >
 
         <ImageView
@@ -32,7 +32,7 @@
             android:layout_toEndOf="@id/include_main_nav_drawer_avatar"
             android:layout_alignTop="@id/include_main_nav_drawer_avatar"
             android:text="Lorem Ipsum"
-            android:textColor="@color/colorLightGrey"
+            android:textColor="@color/grey_light"
             />
 
     </RelativeLayout>
@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorWhiteBlue"
+        android:background="@color/material_blue_50"
         />
 
 </LinearLayout>

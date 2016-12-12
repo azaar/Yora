@@ -18,7 +18,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
         Contacts.GetContactRequestsResponse response = new Contacts.GetContactRequestsResponse();
         response.Requests = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            response.Requests.add(new ContactRequest(i, request.FromUs, createFakeuser(i, false), new GregorianCalendar()));
+            response.Requests.add(new ContactRequest(i, request.FromUs, createFakeUser(i, false), new GregorianCalendar()));
         }
 
         postDelayed(response);
@@ -30,7 +30,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
         response.Contacts = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            response.Contacts.add(createFakeuser(i, true));
+            response.Contacts.add(createFakeUser(i, true));
         }
 
         postDelayed(response, 5000);
@@ -53,13 +53,14 @@ public class InMemoryContactsService extends BaseInMemoryService {
         postDelayed(new Contacts.RespondToContactRequestResponse());
     }
 
-    private UserDetails createFakeuser(int id, boolean isContact) {
+    private UserDetails createFakeUser(int id, boolean isContact) {
         String idString = Integer.toString(id);
         return new UserDetails(
                 id,
                 isContact,
                 "Contact " + idString,
                 "Contact" + idString,
-                "http://www.gravatar.com/avatar/" + idString + "?d=identicon&s=64");
+                "http://gravatar.com/avatar/" + idString + "?d=identicon&s=64");
+
     }
 }

@@ -31,8 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_login_password"
         android:text="@string/log_in"
-        android:background="@color/colorPrimaryDarkBlue"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/white"
         />
 
     <ProgressBar
