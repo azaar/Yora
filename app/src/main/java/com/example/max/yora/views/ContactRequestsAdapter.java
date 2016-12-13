@@ -48,7 +48,7 @@ public class ContactRequestsAdapter extends ArrayAdapter<ContactRequest> {
         if (request.isFromUs()) {
             view.CreatedAt.setText(getContext().getResources().getString(R.string.sent_at) + createdAt);
         } else {
-            view.CreatedAt.setText(getContext().getResources().getString(R.string.recieved) + createdAt);
+            view.CreatedAt.setText(getContext().getResources().getString(R.string.received) + createdAt);
         }
 
         return convertView;
