@@ -9,5 +9,6 @@ public class Module {
         Log.e("Module", "IN MEMORY REGISTER METHOD CALLED");
         new InMemoryAccountService(application);
         new InMemoryContactsService(application);
+        new InMemoryMessagesService(application);
     }
 }
