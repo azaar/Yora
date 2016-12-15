@@ -53,6 +53,13 @@ public class InMemoryContactsService extends BaseInMemoryService {
         postDelayed(new Contacts.RespondToContactRequestResponse());
     }
 
+    @Subscribe
+    public void removeContact (Contacts.RemoveContactRequest request) {
+        Contacts.RemoveContactResponse response = new Contacts.RemoveContactResponse();
+        response.RemovedContactId = request.ContactId;
+        postDelayed(response);
+    }
+
     private UserDetails createFakeUser(int id, boolean isContact) {
         String idString = Integer.toString(id);
         return new UserDetails(

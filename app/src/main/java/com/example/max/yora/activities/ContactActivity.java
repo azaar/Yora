@@ -1,14 +1,156 @@
 package com.example.max.yora.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.example.max.yora.R;
+import com.example.max.yora.services.Contacts;
+import com.example.max.yora.services.Messages;
+import com.example.max.yora.services.entities.Message;
+import com.example.max.yora.services.entities.UserDetails;
+import com.example.max.yora.views.MessagesAdapter;
+import com.squareup.otto.Subscribe;
 
-public class ContactActivity extends BaseAuthenticatedActivity {
+import java.util.ArrayList;
+
+public class ContactActivity extends BaseAuthenticatedActivity implements MessagesAdapter.OnMessageClickedListener {
     public static final String EXTRA_USER_DETAILS = "EXTRA_USER_DETAILS";
+
+    public static final int RESULT_USER_REMOVED = 101;
+
+    private UserDetails userDetails;
+    private MessagesAdapter adapter;
+    private ArrayList<Message> messages;
+    private View progressFrame;
 
     @Override
     protected void onYoraCreate(Bundle savedState) {
         setContentView(R.layout.activity_contact);
+
+        userDetails = getIntent().getParcelableExtra(EXTRA_USER_DETAILS);
+
+        // TODO: Remove before production or use some tool for auto-removal
+        if (userDetails == null) {
+            userDetails = new UserDetails(1, true, "A Contact", "a_contact", "http://gravatar.com/avatar/1.jpg");
+        }
+
+        getSupportActionBar().setTitle(userDetails.getDisplayName());
+        toolbar.setNavigationIcon(R.drawable.ic_close);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        adapter = new MessagesAdapter(this, this);
+        messages = adapter.getMessages();
+
+        progressFrame = findViewById(R.id.activity_contact_progressFrame);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_contact_messages);
+        recyclerView.setAdapter(adapter);
+
+        if (isTablet) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        } else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+        scheduler.postEveryMilliseconds(new Messages.SearchMessagesRequest(userDetails.getId(), true, true), 1000 * 60 * 3);
+    }
+
+    @Override
+    public void onMessageClicked(Message message) {
+        Intent intent = new Intent(this, MessageActivity.class);
+        intent.putExtra(MessageActivity.EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    @Subscribe
+    public void onMessagesReceived(final Messages.SearchMessagesResponse response) {
+        scheduler.invokeOnResume(Messages.SearchMessagesResponse.class, new Runnable() {
+            @Override
+            public void run() {
+                if (!response.didSucceed()) {
+                    response.showErrorToast(ContactActivity.this);
+                    return;
+                }
+
+                int oldMessagesSize = messages.size();
+                messages.clear();
+                adapter.notifyItemRangeRemoved(0, oldMessagesSize);
+
+                messages.addAll(response.Messages);
+                adapter.notifyItemRangeInserted(0, messages.size());
+
+                progressFrame.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void doRemoveContact() {
+        progressFrame.setVisibility(View.VISIBLE);
+        bus.post(new Contacts.RemoveContactRequest(userDetails.getId()));
+    }
+
+    @Subscribe
+    public void onRemoveContact(final Contacts.RemoveContactResponse response) {
+        scheduler.invokeOnResume(Contacts.RemoveContactResponse.class, new Runnable() {
+            @Override
+            public void run() {
+                if (!response.didSucceed()) {
+                    response.showErrorToast(ContactActivity.this);
+                    progressFrame.setVisibility(View.VISIBLE);
+                    return;
+                }
+                setResult(RESULT_USER_REMOVED);
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_contact, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.activity_contact_menuNewMessage) {
+            Intent intent = new Intent(this, NewMessageActivity.class);
+            intent.putExtra(NewMessageActivity.EXTRA_CONTACT, userDetails);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.activity_contact_menuRemoveFriend) {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.remove_friend)
+                    .setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            doRemoveContact();
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, null)
+                    .create();
+
+            dialog.show();
+            return true;
+        }
+
+        return false;
     }
 }
