@@ -4,11 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class UserDetails implements Parcelable {
-    private int id;
-    private boolean isContact;
-    private String displayName;
-    private String userName;
-    private String avatarUrl;
+    private final int id;
+    private final boolean isContact;
+    private final String displayName;
+    private final String userName;
+    private final String avatarUrl;
+
 
     public UserDetails(int id, boolean isContact, String displayName, String userName, String avatarUrl) {
         this.id = id;
@@ -16,6 +17,28 @@ public class UserDetails implements Parcelable {
         this.displayName = displayName;
         this.userName = userName;
         this.avatarUrl = avatarUrl;
+    }
+
+    private UserDetails(Parcel parcel) {
+        id = parcel.readInt();
+        isContact = parcel.readByte() == 1;
+        displayName = parcel.readString();
+        userName = parcel.readString();
+        avatarUrl = parcel.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeByte((byte) (isContact ? 1 : 0));
+        dest.writeString(displayName);
+        dest.writeString(userName);
+        dest.writeString(avatarUrl);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public int getId() {
@@ -38,25 +61,16 @@ public class UserDetails implements Parcelable {
         return avatarUrl;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
 
     public static final Creator<UserDetails> CREATOR = new Creator<UserDetails>() {
         @Override
         public UserDetails createFromParcel(Parcel source) {
-            return new UserDetails(0, false, null, null, null);
+            return new UserDetails(source);
         }
 
         @Override
         public UserDetails[] newArray(int size) {
-            return new UserDetails[0];
+            return new UserDetails[size];
         }
     };
 }

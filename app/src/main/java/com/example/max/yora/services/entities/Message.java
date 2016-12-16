@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Message implements Parcelable {
     private int id;
@@ -33,6 +34,38 @@ public class Message implements Parcelable {
         this.otherUser = otherUser;
         this.isFromUs = isFromUs;
         this.isRead = isRead;
+    }
+
+    private Message(Parcel parcel) {
+        id = parcel.readInt();
+
+        createdAt = new GregorianCalendar();
+        createdAt.setTimeInMillis(parcel.readLong());
+
+        shortMessage = parcel.readString();
+        longMessage = parcel.readString();
+        imageUrl = parcel.readString();
+        otherUser = (UserDetails) parcel.readParcelable(UserDetails.class.getClassLoader());
+        isFromUs = parcel.readByte() == 1;
+        isRead = parcel.readByte() == 1;
+    }
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeLong(createdAt.getTimeInMillis());
+        dest.writeString(shortMessage);
+        dest.writeString(longMessage);
+        dest.writeString(imageUrl);
+        dest.writeParcelable(otherUser, 0);
+        dest.writeByte((byte) (isFromUs ? 1 : 0));
+        dest.writeByte((byte) (isRead   ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public int getId() {
@@ -75,26 +108,17 @@ public class Message implements Parcelable {
         isSelected = selected;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
 
     public static final Creator<Message> CREATOR = new Creator<Message>() {
 
         @Override
         public Message createFromParcel(Parcel source) {
-            return null;
+            return new Message(source);
         }
 
         @Override
         public Message[] newArray(int size) {
-            return new Message[0];
+            return new Message[size];
         }
     };
 }
