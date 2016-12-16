@@ -60,6 +60,19 @@ public class InMemoryContactsService extends BaseInMemoryService {
         postDelayed(response);
     }
 
+    @Subscribe
+    public void searchUsers(Contacts.SearchUsersRequest request) {
+        Contacts.SearchUsersResponse response = new Contacts.SearchUsersResponse();
+        response.Query = request.Query;
+        response.Users = new ArrayList<>();
+
+        for (int i = 0; i < request.Query.length(); i++) {
+            response.Users.add(createFakeUser(i,false));
+        }
+
+        postDelayed(response, 2000, 3000);
+    }
+
     private UserDetails createFakeUser(int id, boolean isContact) {
         String idString = Integer.toString(id);
         return new UserDetails(
@@ -68,6 +81,5 @@ public class InMemoryContactsService extends BaseInMemoryService {
                 "Contact " + idString,
                 "Contact" + idString,
                 "http://gravatar.com/avatar/" + idString + "?d=identicon&s=64");
-
     }
 }

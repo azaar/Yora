@@ -26,4 +26,6 @@
     <string name="remove">Remove</string>
     <string name="cancel">Cancel</string>
     <string name="new_message">New Message</string>
+    <string name="search_for_users">Search for users</string>
+    <string name="send_contact_request">Send Contact Request</string>
 </resources>

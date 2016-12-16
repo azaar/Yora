@@ -33,7 +33,10 @@
 
         <activity android:name=".activities.ContactActivity"/>
 
-        <activity android:name=".activities.AddContactActivity"/>
+        <activity
+            android:name=".activities.AddContactActivity"
+            android:theme="@style/AddContactTheme"
+            />
 
         <activity android:name=".activities.SentMessagesActivity"/>
 
