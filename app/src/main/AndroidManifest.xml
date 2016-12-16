@@ -33,6 +33,8 @@
 
         <activity android:name=".activities.ContactActivity"/>
 
+        <activity android:name=".activities.SelectContactActivity"/>
+
         <activity
             android:name=".activities.AddContactActivity"
             android:theme="@style/AddContactTheme"
