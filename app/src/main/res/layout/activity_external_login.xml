@@ -17,8 +17,8 @@
         android:id="@+id/activity_external_login_testButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/test_log_in"
         android:layout_gravity="bottom"
+        android:text="@string/test_log_in"
         />
 
 </FrameLayout>
