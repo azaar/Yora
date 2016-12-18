@@ -6,6 +6,11 @@
     <color name="grey_light">#DDDDDD</color>
     <color name="grey_light_transparent">#8AFFFFFF</color>
     <color name="grey">#444444</color>
+    <color name="grey_transparent_1">#10555555</color>
+    <color name="grey_transparent_2">#20555555</color>
+    <color name="grey_transparent_3">#30555555</color>
+    <color name="grey_transparent_4">#40555555</color>
+    <color name="grey_transparent_5">#50555555</color>
     <color name="grey_transparent">#AA000000</color>
     <color name="black_transparent">#DE000000</color>
     <color name="black">#000000</color>
@@ -25,5 +30,8 @@
     <color name="material_cyan_100">#B2EBF2</color>
     <color name="material_cyan_500">#00BCD4</color>
     <color name="material_brown_100">#D7CCC8</color>
+    <color name="orange">#FF8800</color>
+    <color name="blue">#0099CC</color>
+
 
 </resources>
