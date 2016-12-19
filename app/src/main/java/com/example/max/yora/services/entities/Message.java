@@ -36,31 +36,31 @@ public class Message implements Parcelable {
         this.isRead = isRead;
     }
 
-    private Message(Parcel parcel) {
-        id = parcel.readInt();
+    private Message(Parcel in) {
+        id = in.readInt();
 
         createdAt = new GregorianCalendar();
-        createdAt.setTimeInMillis(parcel.readLong());
+        createdAt.setTimeInMillis(in.readLong());
 
-        shortMessage = parcel.readString();
-        longMessage = parcel.readString();
-        imageUrl = parcel.readString();
-        otherUser = (UserDetails) parcel.readParcelable(UserDetails.class.getClassLoader());
-        isFromUs = parcel.readByte() == 1;
-        isRead = parcel.readByte() == 1;
+        shortMessage = in.readString();
+        longMessage = in.readString();
+        imageUrl = in.readString();
+        otherUser = (UserDetails) in.readParcelable(UserDetails.class.getClassLoader());
+        isFromUs = in.readByte() == 1;
+        isRead = in.readByte() == 1;
     }
 
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeLong(createdAt.getTimeInMillis());
-        dest.writeString(shortMessage);
-        dest.writeString(longMessage);
-        dest.writeString(imageUrl);
-        dest.writeParcelable(otherUser, 0);
-        dest.writeByte((byte) (isFromUs ? 1 : 0));
-        dest.writeByte((byte) (isRead   ? 1 : 0));
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(id);
+        out.writeLong(createdAt.getTimeInMillis());
+        out.writeString(shortMessage);
+        out.writeString(longMessage);
+        out.writeString(imageUrl);
+        out.writeParcelable(otherUser, 0);
+        out.writeByte((byte) (isFromUs ? 1 : 0));
+        out.writeByte((byte) (isRead   ? 1 : 0));
     }
 
     @Override

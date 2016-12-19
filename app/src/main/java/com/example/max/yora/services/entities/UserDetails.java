@@ -19,21 +19,21 @@ public class UserDetails implements Parcelable {
         this.avatarUrl = avatarUrl;
     }
 
-    private UserDetails(Parcel parcel) {
-        id = parcel.readInt();
-        isContact = parcel.readByte() == 1;
-        displayName = parcel.readString();
-        userName = parcel.readString();
-        avatarUrl = parcel.readString();
+    private UserDetails(Parcel in) {
+        id = in.readInt();
+        isContact = in.readByte() == 1;
+        displayName = in.readString();
+        userName = in.readString();
+        avatarUrl = in.readString();
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeByte((byte) (isContact ? 1 : 0));
-        dest.writeString(displayName);
-        dest.writeString(userName);
-        dest.writeString(avatarUrl);
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(id);
+        out.writeByte((byte) (isContact ? 1 : 0));
+        out.writeString(displayName);
+        out.writeString(userName);
+        out.writeString(avatarUrl);
     }
 
     @Override
