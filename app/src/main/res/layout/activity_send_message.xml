@@ -17,5 +17,54 @@
         android:layout_below="@id/include_toolbar"
         />
 
+    <LinearLayout
+        android:id="@+id/activity_send_message_optionsFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/material_blue_grey_800_transparent"
+        >
+
+        <EditText
+            android:id="@+id/activity_send_message_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:maxLines="1"
+            android:hint="@string/message"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grey_light_2"
+            />
+
+        <Button
+            android:id="@+id/activity_send_message_recipientButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="@string/choose_recipient"
+            />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/activity_send_message_progressFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/material_blue_500"
+        android:clickable="true"
+        android:visibility="gone"
+        >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateOnly="true"
+            />
+
+    </FrameLayout>
+
 
 </RelativeLayout>
