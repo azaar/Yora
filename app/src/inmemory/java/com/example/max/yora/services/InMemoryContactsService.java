@@ -41,7 +41,7 @@ public class InMemoryContactsService extends BaseInMemoryService {
         // simulate error
         if (request.UserId == 2) {
             Contacts.SendContactRequestResponse response = new Contacts.SendContactRequestResponse();
-            response.setOperationError("Something bad happened");
+            response.setOperationError("Test error for User 2");
             postDelayed(response);
         } else {
             postDelayed(new Contacts.SendContactRequestResponse());

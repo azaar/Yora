@@ -26,6 +26,8 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
 
     public static final int RESULT_USER_REMOVED = 101;
 
+    public static final int REQUEST_SEND_MESSAGE = 1;
+
     private UserDetails userDetails;
     private MessagesAdapter adapter;
     private ArrayList<Message> messages;
@@ -131,7 +133,7 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
         if (id == R.id.activity_contact_menuNewMessage) {
             Intent intent = new Intent(this, NewMessageActivity.class);
             intent.putExtra(NewMessageActivity.EXTRA_CONTACT, userDetails);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_SEND_MESSAGE);
             return true;
         }
 
@@ -152,5 +154,13 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
         }
 
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SEND_MESSAGE && resultCode == RESULT_OK) {
+            progressFrame.setVisibility(View.VISIBLE);
+            bus.post(new Messages.SearchMessagesRequest(userDetails.getId(), true, true));
+        }
     }
 }

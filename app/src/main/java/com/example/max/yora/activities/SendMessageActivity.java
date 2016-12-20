@@ -5,15 +5,19 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.max.yora.R;
 import com.example.max.yora.services.Messages;
 import com.example.max.yora.services.entities.UserDetails;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 public class SendMessageActivity extends BaseAuthenticatedActivity implements View.OnClickListener {
@@ -80,6 +84,11 @@ public class SendMessageActivity extends BaseAuthenticatedActivity implements Vi
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(STATE_REQUEST, request);
+    }
+
+    @Override
     public void onClick(View view) {
         if (view == recipientButton) {
             selectRecipient();
@@ -106,5 +115,69 @@ public class SendMessageActivity extends BaseAuthenticatedActivity implements Vi
             request.setRecipient(selectedContact);
             updateButtons();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_send_message, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.activity_send_message_menuSend) {
+            sendMessage();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void sendMessage() {
+        String message = messageEditText.getText().toString();
+        if (message.length() < 2) {
+            messageEditText.setError(getString(R.string.please_enter_a_longer_message));
+            return;
+        }
+
+        messageEditText.setError(null);
+
+        if (request.getRecipient() == null) {
+            Toast.makeText(this, "Please select a recipient",Toast.LENGTH_SHORT).show();
+            selectRecipient();
+            return;
+        }
+
+        progressFrame.setVisibility(View.VISIBLE);
+        progressFrame.setAlpha(0);
+        progressFrame.animate().alpha(1).setDuration(250).start();
+
+        request.setMessage(message);
+        bus.post(request);
+    }
+
+    @Subscribe
+    public void onMessageSent(Messages.SendMessageResponse response) {
+        if (!response.didSucceed()) {
+            response.showErrorToast(this);
+            messageEditText.setError(response.getPropertyError("message"));
+            progressFrame
+                    .animate()
+                    .alpha(0)
+                    .setDuration(200)
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressFrame.setVisibility(View.GONE);
+                        }
+                    })
+                    .start();
+            return;
+        }
+
+        setResult(RESULT_OK);
+        finish();
     }
 }

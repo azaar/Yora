@@ -34,7 +34,10 @@
 
         <activity android:name=".activities.ContactActivity"/>
 
-        <activity android:name=".activities.SelectContactActivity"/>
+        <activity
+            android:name=".activities.SelectContactActivity"
+            android:exported="true"
+            />
 
         <activity
             android:name=".activities.AddContactActivity"
