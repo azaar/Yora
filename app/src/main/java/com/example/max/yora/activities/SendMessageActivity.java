@@ -24,7 +24,7 @@ public class SendMessageActivity extends BaseAuthenticatedActivity implements Vi
     public static final String EXTRA_IMAGE_PATH = "EXTRA_IMAGE_PATH";
     public static final String EXTRA_CONTACT = "EXTRA_CONTACT";
 
-    public static final int MAX_IMAGE_HEIGHT = 1280;
+    public static final int MAX_IMAGE_HEIGHT = 1000;
 
     private static final String STATE_REQUEST = "STATE_REQUEST";
     private static final int REQUEST_SELECT_RECIPIENT = 1;

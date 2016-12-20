@@ -82,6 +82,8 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
         scheduler.invokeOnResume(Messages.SearchMessagesResponse.class, new Runnable() {
             @Override
             public void run() {
+                progressFrame.setVisibility(View.GONE);
+
                 if (!response.didSucceed()) {
                     response.showErrorToast(ContactActivity.this);
                     return;
@@ -93,8 +95,6 @@ public class ContactActivity extends BaseAuthenticatedActivity implements Messag
 
                 messages.addAll(response.Messages);
                 adapter.notifyItemRangeInserted(0, messages.size());
-
-                progressFrame.setVisibility(View.GONE);
             }
         });
     }

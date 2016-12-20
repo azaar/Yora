@@ -24,6 +24,7 @@ import com.example.max.yora.services.Account;
 import com.example.max.yora.views.MainNavDrawer;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
 
         User user = application.getAuth().getUser();
         getSupportActionBar().setTitle(user.getDisplayName());
+        Picasso.with(this).load(user.getAvatarUrl()).into(avatarView);
 
         if (savedState == null) {
 
@@ -99,6 +101,7 @@ public class ProfileActivity extends BaseAuthenticatedActivity implements View.O
     @Subscribe
     public void onUserDetailsUpdated(Account.UserDetailsUpdatedEvent event) {
         getSupportActionBar().setTitle(event.User.getDisplayName());
+        Picasso.with(this).load(event.User.getAvatarUrl()).into(avatarView);
     }
 
     @Override

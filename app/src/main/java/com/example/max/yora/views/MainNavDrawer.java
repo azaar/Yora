@@ -14,6 +14,7 @@ import com.example.max.yora.activities.SentMessagesActivity;
 import com.example.max.yora.infrastructure.User;
 import com.example.max.yora.services.Account;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 
 public class MainNavDrawer extends NavDrawer {
@@ -50,13 +51,13 @@ public class MainNavDrawer extends NavDrawer {
         User loggedInUser = activity.getYoraApplication().getAuth().getUser();
         displayNameText.setText(loggedInUser.getDisplayName());
 
-        // TODO: change avatarImage to avatarUrl from loggedInUser
+        Picasso.with(activity).load(loggedInUser.getAvatarUrl()).into(avatarImage);
 
     }
 
     @Subscribe
     public void onUserDetailsUpdated(Account.UserDetailsUpdatedEvent event) {
-        // TODO: update avatar URL
+        Picasso.with(activity).load(event.User.getAvatarUrl()).into(avatarImage);
         displayNameText.setText(event.User.getDisplayName());
     }
 }
