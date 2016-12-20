@@ -29,7 +29,7 @@ public final class Account {
         }
     }
 
-    public static class LoginWithUsernameResponse extends UserResponse {
+    public static class LoginWithUsernameResponse extends ServiceResponse {
     }
 
     public static class LoginWithLocalTokenRequest {
@@ -103,6 +103,7 @@ public final class Account {
     }
 
     public static class ChangeAvatarResponse extends ServiceResponse {
+        public String AvatarUrl;
     }
 
     public static class UpdateProfileRequest {
@@ -116,6 +117,8 @@ public final class Account {
     }
 
     public static class UpdateProfileResponse extends ServiceResponse {
+        public String DisplayName;
+        public String Email;
     }
 
     public static class ChangePasswordRequest {
@@ -140,4 +143,18 @@ public final class Account {
             User = user;
         }
     }
+
+    public static class UpdateGcmRegistrationRequest {
+        public String RegistrationId;
+
+        public UpdateGcmRegistrationRequest(String registrationId) {
+            RegistrationId = registrationId;
+        }
+    }
+
+    public static class UpdateGcmRegistrationResponse extends ServiceResponse {
+
+    }
+
+
 }

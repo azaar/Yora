@@ -73,7 +73,7 @@ public class InMemoryAccountService extends BaseInMemoryService {
                     response.setPropertyError("userName", "Invalid username or password");
                 }
 
-                loginUser(response);
+                loginUser(new Account.UserResponse());
                 bus.post(response);
             }
         });
@@ -126,6 +126,11 @@ public class InMemoryAccountService extends BaseInMemoryService {
                 bus.post(response);
             }
         });
+    }
+
+    @Subscribe
+    public void updateGcmRegistration(Account.UpdateGcmRegistrationRequest request) {
+        postDelayed(new Account.UpdateGcmRegistrationResponse());
     }
 
     @Subscribe

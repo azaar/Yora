@@ -77,4 +77,26 @@ public class InMemoryMessagesService extends BaseInMemoryService {
 
         postDelayed(response, 1500, 3000);
     }
+
+    @Subscribe
+    public void markMessageAsRead(Messages.MarkMessageAsReadRequest request) {
+        postDelayed(new Messages.MarkMessageAsReadResponse());
+    }
+
+    @Subscribe
+    public void getMessageDetails(Messages.GetMessageDetailsRequest request) {
+        Messages.GetMessageDetailsResponse response = new Messages.GetMessageDetailsResponse();
+
+        response.Message = new Message(
+                1,
+                Calendar.getInstance(),
+                "Short message",
+                "Long message",
+                null,
+                new UserDetails(1, true, "Display Name", "Username", "http://gravatar.com/avatar/2?d=identicon"),
+                false,
+                false);
+
+        postDelayed(response);
+    }
 }
