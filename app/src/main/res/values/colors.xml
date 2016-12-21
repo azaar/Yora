@@ -35,4 +35,10 @@
     <color name="orange">#FF8800</color>
     <color name="blue">#0099CC</color>
 
+    <color name="cyan">#FF00DDFF</color>
+    <color name="lime">#FF99CC00</color>
+    <color name="yellow">#FFFFBB33</color>
+    <color name="red">#FFFF4444</color>
+
+
 </resources>

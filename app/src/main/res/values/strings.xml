@@ -19,7 +19,8 @@
     <string name="contact_activity">Contact Activity</string>
     <string name="add_contact_activity">Add Contact Activity</string>
     <string name="pending_contact_requests">Pending Contact Requests</string>
-    <string name="sent_at">"Sent at "</string>
+    <string name="sent_at">Sent at </string>
+    <string name="received_at">Received at </string>
     <string name="you_have_no_contacts">You have no contacts</string>
     <string name="display_name">Display Name</string>
     <string name="add_contact">Add Contact</string>
