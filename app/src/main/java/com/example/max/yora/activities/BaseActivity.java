@@ -159,7 +159,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeRef
 
     @Override
     public void onRefresh() {
-        
+
     }
 
     public interface FadeOutListener {
