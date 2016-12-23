@@ -34,6 +34,8 @@
     <color name="material_brown_100">#D7CCC8</color>
     <color name="orange">#FF8800</color>
     <color name="blue">#0099CC</color>
+    <color name="blue_transparent">#221998FC</color>
+    <color name="blue_transparent_2">#EE1998FC</color>
 
     <color name="cyan">#FF00DDFF</color>
     <color name="lime">#FF99CC00</color>

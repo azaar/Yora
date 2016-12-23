@@ -191,9 +191,7 @@ public class MainActivity extends BaseAuthenticatedActivity implements View.OnCl
                 return;
             }
 
-            // TODO: Refactor?
-            for (int i = 0; i < messages.size(); i++) {
-                Message message = messages.get(i);
+            for (Message message : messages) {
                 if (message.getId() == messageId) {
                     if (resultCode == MessageActivity.REQUEST_IMAGE_DELETED) {
                         messages.remove(message);

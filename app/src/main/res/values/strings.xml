@@ -44,4 +44,12 @@
     <string name="respond_to_contact_request">Respond to Contact Request</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
+    <string name="translate">Translate</string>
+    <string name="short_message">SHORT MESSAGE</string>
+    <string name="long_message">LONG MESSAGE</string>
+    <string name="reply">Reply</string>
+    <string name="show_profile">Show Profile</string>
+    <string name="delete">Delete</string>
+    <string name="delete_message_questionmark">Delete Message?</string>
+    <string name="close">Close</string>
 </resources>
