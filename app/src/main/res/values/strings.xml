@@ -41,4 +41,7 @@
     <string name="please_enter_a_longer_message">Please enter a longer message</string>
     <string name="received_contact_requests">Received Contact Requests</string>
     <string name="received_messages">Received Messages</string>
+    <string name="respond_to_contact_request">Respond to Contact Request</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
 </resources>

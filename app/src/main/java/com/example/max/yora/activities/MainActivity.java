@@ -1,25 +1,33 @@
 package com.example.max.yora.activities;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.max.yora.R;
 import com.example.max.yora.services.Contacts;
 import com.example.max.yora.services.Messages;
 import com.example.max.yora.services.entities.ContactRequest;
 import com.example.max.yora.services.entities.Message;
+import com.example.max.yora.services.entities.UserDetails;
 import com.example.max.yora.views.MainActivityAdapter;
 import com.example.max.yora.views.MainNavDrawer;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class MainActivity extends BaseAuthenticatedActivity implements View.OnClickListener, MainActivityAdapter.MainActivityListener {
+    private static final int REQUEST_SHOW_MESSAGE = 1;
     private MainActivityAdapter adapter;
     private List<Message> messages;
     private  List<ContactRequest> contactRequests;
@@ -124,11 +132,78 @@ public class MainActivity extends BaseAuthenticatedActivity implements View.OnCl
 
     @Override
     public void onMessageClicked(Message message) {
+        Intent intent = new Intent(this, MessageActivity.class);
+        intent.putExtra(MessageActivity.EXTRA_MESSAGE, message);
+        startActivityForResult(intent, REQUEST_SHOW_MESSAGE);
+    }
 
+
+
+    @Override
+    public void onContactRequestClicked(final ContactRequest request, final int position) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_user_display, null);
+        ImageView avatar = (ImageView) dialogView.findViewById(R.id.dialog_user_display_avatar);
+        TextView displayName = (TextView) dialogView.findViewById(R.id.dialog_user_display_displayName);
+
+        UserDetails user = request.getUser();
+        displayName.setText(user.getDisplayName());
+        Picasso.with(this).load(user.getAvatarUrl()).into(avatar);
+
+        DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == Dialog.BUTTON_NEUTRAL) {
+                    return;
+                }
+
+                boolean doAccept = (i == Dialog.BUTTON_POSITIVE);
+
+                contactRequests.remove(request);
+                adapter.notifyItemRemoved(position + 1);
+
+                if (contactRequests.size() == 0) {
+                    adapter.notifyItemRemoved(0);
+                }
+
+                bus.post(new Contacts.RespondToContactRequestRequest(request.getUser().getId(), doAccept));
+
+            }
+        };
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.respond_to_contact_request)
+                .setView(dialogView)
+                .setPositiveButton(R.string.accept, clickListener)
+                .setNeutralButton(R.string.cancel, clickListener)
+                .setNegativeButton(R.string.reject, clickListener)
+                .setCancelable(false)
+                .create();
+
+        dialog.show();
     }
 
     @Override
-    public void onContactRequestClicked(ContactRequest request, int position) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SHOW_MESSAGE) {
+            int messageId = data.getIntExtra(MessageActivity.RESULT_EXTRA_MESSAGE_ID, -1);
 
+            if (messageId == -1) {
+                return;
+            }
+
+            // TODO: Refactor?
+            for (int i = 0; i < messages.size(); i++) {
+                Message message = messages.get(i);
+                if (message.getId() == messageId) {
+                    if (resultCode == MessageActivity.REQUEST_IMAGE_DELETED) {
+                        messages.remove(message);
+                    } else {
+                        message.setIsRead(true);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                break;
+            }
+        }
     }
 }
