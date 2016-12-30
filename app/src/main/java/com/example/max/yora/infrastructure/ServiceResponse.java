@@ -4,16 +4,21 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.HashMap;
 import java.util.TreeMap;
 
 public abstract class ServiceResponse {
     private static final String TAG = "ServiceResponse";
 
+    @SerializedName("operationError")
     private String operationError;
-    private HashMap<String, String> propertyErrors;
-    private boolean isCritical;
 
+    @SerializedName("propertyErrors")
+    private HashMap<String, String> propertyErrors;
+
+    private boolean isCritical;
     private TreeMap<String, String> propertyErrorsCaseInsensitive;
 
 

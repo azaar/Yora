@@ -17,6 +17,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        // Store api keys with help of gradle and the gradle.properties file
+        // http://stackoverflow.com/questions/33134031/is-there-a-safe-way-to-manage-api-keys
+        buildTypes.each {
+            it.buildConfigField 'String', 'YORA_API_TOKEN', YoraApiToken
+        }
     }
 
     productFlavors {
@@ -42,4 +48,8 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.android.support:cardview-v7:+'
+
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
+    compile 'com.squareup.okhttp:okhttp:2.2.0'
 }
