@@ -9,6 +9,8 @@ import com.squareup.otto.Bus;
 
 public class YoraApplication extends Application {
     public static final Uri API_ENDPOINT = Uri.parse("http://yora-playground.3dbuzz.com");
+    // Store api keys with help of gradle and the gradle.properties file
+    // http://stackoverflow.com/questions/33134031/is-there-a-safe-way-to-manage-api-keys
     public static final String STUDENT_TOKEN = BuildConfig.YORA_API_TOKEN;
 
     private Auth auth;
