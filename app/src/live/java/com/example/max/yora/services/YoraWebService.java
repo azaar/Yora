@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import retrofit.Callback;
 import retrofit.http.Body;
+import retrofit.http.DELETE;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
@@ -12,6 +13,8 @@ import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.PUT;
 import retrofit.http.Part;
+import retrofit.http.Path;
+import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
 public interface YoraWebService {
@@ -61,9 +64,40 @@ public interface YoraWebService {
                                Callback<Account.UpdateGcmRegistrationResponse> callback);
 
 
+    // --------------------------------------------------------------------------------------------
+    // Contacts
+
+    @GET("/api/v1/users")
+    void searchUsers(@Query("query") String query, Callback<Contacts.SearchUsersResponse> callback);
+
+    @POST("/api/v1/contact-requests/{user}")
+    void sendContactRequest(@Path("user") int userId, Callback<Contacts.SendContactRequestResponse> callback);
+
+    @PUT("api/v1/contact-requests/{user}")
+    void respondToContactRequest(@Path("user") int userId, @Body RespondToContactRequest request, Callback<Contacts.RespondToContactRequestResponse> callback);
+
+    @DELETE("api/v1/contact/{user}")
+    void removeContact(@Path("user") int userId, Callback<Contacts.RemoveContactResponse> callback);
+
+    @GET("api/v1/contact-requests/sent")
+    void getContactRequestsFromUs(Callback<Contacts.GetContactRequestsResponse> callback);
+
+    @GET("api/v1/contact-requests/received")
+    void getContactRequestsToUs(Callback<Contacts.GetContactRequestsResponse> callback);
+
+    @GET("api/v1/contacts")
+    void getContacts(Callback<Contacts.GetContactsResponse> callback);
 
     // --------------------------------------------------------------------------------------------
     // DTOs
+
+    public class RespondToContactRequest {
+        public String Response;
+
+        public RespondToContactRequest(String response) {
+            Response = response;
+        }
+    }
 
     public class LoginResponse extends ServiceResponse {
         @SerializedName(".expires")
