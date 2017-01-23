@@ -12,6 +12,7 @@ import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.max.yora.R;
@@ -136,7 +137,8 @@ public class MessageActivity extends BaseAuthenticatedActivity implements View.O
         shortMessage.setText(message.getShortMessage());
 
         if (message.getImageUrl() != null && !message.getImageUrl().isEmpty()) {
-            // TODO: Load image
+            ImageView image = (ImageView) findViewById(R.id.activity_message_image);
+            application.getAuthedPicasso().load(message.getImageUrl()).into(image);
         }
 
         invalidateOptionsMenu();

@@ -11,19 +11,26 @@ public class LiveContactsService extends BaseLiveService {
 
     @Subscribe
     public void searchUsers(Contacts.SearchUsersRequest request) {
-        api.searchUsers(request.Query, new RetrofitCallbackPost<>(Contacts.SearchUsersResponse.class, bus));
+        api.searchUsers(
+                request.Query,
+                new RetrofitCallbackPost<>(Contacts.SearchUsersResponse.class, bus));
     }
 
     @Subscribe
     public void sendContactRequest(Contacts.SendContactRequestRequest request) {
-        api.sendContactRequest(request.UserId, new RetrofitCallbackPost<>(Contacts.SendContactRequestResponse.class, bus));
+        api.sendContactRequest(
+                request.UserId,
+                new RetrofitCallbackPost<>(Contacts.SendContactRequestResponse.class, bus));
     }
 
     @Subscribe
     public void getContactRequests(Contacts.GetContactRequestsRequest request) {
+
         if (request.FromUs) {
             api.getContactRequestsFromUs(new RetrofitCallbackPost<>(Contacts.GetContactRequestsResponse.class, bus));
+
         } else {
+
             api.getContactRequestsToUs(new RetrofitCallbackPost<>(Contacts.GetContactRequestsResponse.class, bus));
         }
     }
@@ -31,6 +38,7 @@ public class LiveContactsService extends BaseLiveService {
     @Subscribe
     public void respondToContactRequest(Contacts.RespondToContactRequestRequest request) {
         String response;
+
         if (request.Accept) {
             response = "accept";
         } else {
@@ -50,6 +58,8 @@ public class LiveContactsService extends BaseLiveService {
 
     @Subscribe
     public void removeContact(Contacts.RemoveContactRequest request) {
-        api.removeContact(request.ContactId, new RetrofitCallbackPost<>(Contacts.RemoveContactResponse.class, bus));
+        api.removeContact(
+                request.ContactId,
+                new RetrofitCallbackPost<>(Contacts.RemoveContactResponse.class, bus));
     }
 }

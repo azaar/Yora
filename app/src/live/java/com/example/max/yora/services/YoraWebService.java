@@ -16,6 +16,7 @@ import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
 import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 public interface YoraWebService {
 
@@ -68,16 +69,25 @@ public interface YoraWebService {
     // Contacts
 
     @GET("/api/v1/users")
-    void searchUsers(@Query("query") String query, Callback<Contacts.SearchUsersResponse> callback);
+    void searchUsers(
+            @Query("query") String query,
+            Callback<Contacts.SearchUsersResponse> callback);
 
     @POST("/api/v1/contact-requests/{user}")
-    void sendContactRequest(@Path("user") int userId, Callback<Contacts.SendContactRequestResponse> callback);
+    void sendContactRequest(
+            @Path("user") int userId,
+            Callback<Contacts.SendContactRequestResponse> callback);
 
     @PUT("api/v1/contact-requests/{user}")
-    void respondToContactRequest(@Path("user") int userId, @Body RespondToContactRequest request, Callback<Contacts.RespondToContactRequestResponse> callback);
+    void respondToContactRequest(
+            @Path("user") int userId,
+            @Body RespondToContactRequest request,
+            Callback<Contacts.RespondToContactRequestResponse> callback);
 
     @DELETE("api/v1/contact/{user}")
-    void removeContact(@Path("user") int userId, Callback<Contacts.RemoveContactResponse> callback);
+    void removeContact(
+            @Path("user") int userId,
+            Callback<Contacts.RemoveContactResponse> callback);
 
     @GET("api/v1/contact-requests/sent")
     void getContactRequestsFromUs(Callback<Contacts.GetContactRequestsResponse> callback);
@@ -87,6 +97,48 @@ public interface YoraWebService {
 
     @GET("api/v1/contacts")
     void getContacts(Callback<Contacts.GetContactsResponse> callback);
+
+
+    // --------------------------------------------------------------------------------------------
+    // Messages
+
+    @Multipart
+    @POST("/api/v1/messages")
+    void sendMessage(
+            @Part("message") TypedString message,
+            @Part("to") TypedString to,
+            @Part("photo") TypedFile photo,
+            Callback<Messages.SendMessageResponse> callback);
+
+    @DELETE("api/v1/messages/{id}")
+    void deleteMessage(
+            @Path("id") int messageID,
+            Callback<Messages.DeleteMessageResponse> callback);
+
+    @PUT("api/v1/messages/{id}/is-read")
+    void markMessageAsRead(
+            @Path("id") int messageId,
+            Callback<Messages.MarkMessageAsReadResponse> callback);
+
+    @GET("api/v1/messages")
+    void searchMessages(
+            @Query("contactId") int from,
+            @Query("includeSent") boolean includeSent,
+            @Query("includeReceived") boolean includeReceived,
+            Callback<Messages.SearchMessagesResponse> callback);
+
+    @GET("api/v1/messages")
+    void searchMessages(
+            @Query("includeSent") boolean includeSent,
+            @Query("includeReceived") boolean includeReceived,
+            Callback<Messages.SearchMessagesResponse> callback);
+
+    @GET("api/v1/messages/{id}")
+    void getMessageDetails(
+            @Path("id") int id,
+            Callback<Messages.GetMessageDetailsResponse> callback);
+
+
 
     // --------------------------------------------------------------------------------------------
     // DTOs
