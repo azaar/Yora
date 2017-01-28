@@ -76,7 +76,7 @@ public class LiveAccountService extends BaseLiveService {
         api.getAccount(new RetrofitCallbackPost<Account.LoginWithLocalTokenResponse>(Account.LoginWithLocalTokenResponse.class, bus) {
             @Override
             protected void onResponse(Account.LoginWithLocalTokenResponse loginWithLocalTokenResponse) {
-                loginUser(loginWithLocalTokenResponse);
+                loginUser(loginWithLocalRegisterGcmFragmentTokenResponse);
                 super.onResponse(loginWithLocalTokenResponse);
             }
         });

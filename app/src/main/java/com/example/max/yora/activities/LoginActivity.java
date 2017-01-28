@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.example.max.yora.R;
 import com.example.max.yora.fragments.LoginFragment;
+import com.example.max.yora.fragments.RegisterGcmFragment;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, LoginFragment.Callbacks{
     private static final int REQUEST_NARROW_LOGIN = 1;
@@ -66,10 +67,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
 
         if (requestCode == REQUEST_NARROW_LOGIN ||
-                requestCode == REQUEST_REGISTER ||
-                requestCode == REQUEST_EXTERNAL_LOGIN) {
+            requestCode == REQUEST_REGISTER ||
+            requestCode == REQUEST_EXTERNAL_LOGIN) {
 
-            finishLogin();
+            RegisterGcmFragment.get(new RegisterGcmFragment.GcmRegistrationCallback() {
+                @Override
+                public void gcmFinished() {
+                    finishLogin();
+                }
+            }, requestCode == REQUEST_REGISTER, getFragmentManager());
         }
     }
 

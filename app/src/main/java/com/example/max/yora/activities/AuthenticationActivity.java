@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.max.yora.R;
+import com.example.max.yora.fragments.RegisterGcmFragment;
 import com.example.max.yora.infrastructure.Auth;
 import com.example.max.yora.services.Account;
 import com.squareup.otto.Subscribe;
 
-public class AuthenticationActivity extends BaseActivity {
+public class AuthenticationActivity extends BaseActivity implements RegisterGcmFragment.GcmRegistrationCallback {
     private Auth auth;
 
     public static final String EXTRA_RETURN_TO_ACTIVITY = "EXTRA_RETURN_TO_ACTIVITY";
@@ -41,6 +42,11 @@ public class AuthenticationActivity extends BaseActivity {
             return;
         }
 
+        RegisterGcmFragment.get(this, false, getFragmentManager());
+    }
+
+    @Override
+    public void gcmFinished() {
         Intent intent;
         String returnTo = getIntent().getStringExtra(EXTRA_RETURN_TO_ACTIVITY);
 

@@ -22,6 +22,7 @@ android {
         // http://stackoverflow.com/questions/33134031/is-there-a-safe-way-to-manage-api-keys
         buildTypes.each {
             it.buildConfigField 'String', 'YORA_API_TOKEN', YoraApiToken
+            it.buildConfigField 'String', 'YORA_SENDER_ID', YoraSenderID
         }
     }
 
@@ -52,4 +53,6 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
+
+    compile 'com.google.android.gms:play-services:7.3.0'
 }
