@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.max.yora.R;
 import com.example.max.yora.services.Contacts;
+import com.example.max.yora.services.Events;
 import com.example.max.yora.services.Messages;
 import com.example.max.yora.services.entities.ContactRequest;
 import com.example.max.yora.services.entities.Message;
@@ -203,5 +204,46 @@ public class MainActivity extends BaseAuthenticatedActivity implements View.OnCl
                 break;
             }
         }
+    }
+
+    @Subscribe
+    public void onNotification(final Events.OnNotificationReceivedEvent event) {
+
+        scheduler.invokeOnResume(event.getClass(), new Runnable() {
+            @Override
+            public void run() {
+
+                if (event.EntityOwnerId == application.getAuth().getUser().getId()) {
+                    return;
+                }
+
+                if (event.EntityId == Events.ENTITY_MESSAGE) {
+                    if (event.OperationType == Events.OPERATION_CREATED) {
+                        bus.post(new Messages.SearchMessagesRequest(false, true));
+                    } else {
+                        for (int i = 0; i < messages.size(); i++) {
+                            if (messages.get(i).getId() == event.EntityId) {
+                                messages.remove(i);
+                                adapter.notifyDataSetChanged();
+                                break;
+                            }
+                        }
+                    }
+
+                } else if (event.EntityType == Events.ENTITY_CONTACT_REQUEST) {
+                    if (event.OperationType == Events.OPERATION_CREATED) {
+                        bus.post(new Contacts.GetContactRequestsRequest(false));
+                    } else {
+                        for (int i = 0; i < contactRequests.size(); i++) {
+                            if (contactRequests.get(i).getUser().getId() == event.EntityOwnerId) {
+                                contactRequests.remove(i);
+                                adapter.notifyDataSetChanged();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 }

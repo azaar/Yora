@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.max.yora.R;
+import com.example.max.yora.services.Events;
 import com.example.max.yora.services.Messages;
 import com.example.max.yora.services.entities.Message;
 import com.example.max.yora.services.entities.UserDetails;
@@ -125,7 +126,7 @@ public class MessageActivity extends BaseAuthenticatedActivity implements View.O
         String createdAt = DateUtils.formatDateTime(
                 this,
                 message.getCreatedAt().getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE| DateUtils.FORMAT_SHOW_TIME);
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
 
         if (message.isFromUs()) {
             getSupportActionBar().setTitle(getString(R.string.sent_at) + createdAt);
@@ -250,6 +251,19 @@ public class MessageActivity extends BaseAuthenticatedActivity implements View.O
         currentAnimation.setDuration(300);
         currentAnimation.play(translateAnimator).with(colorAnimator);
         currentAnimation.start();
+    }
 
+    @Subscribe
+    public void onNotification(Events.OnNotificationReceivedEvent event) {
+        if (currentMessage == null) {
+            return;
+        }
+
+        if (event.OperationType == Events.OPERATION_DELETED &&
+                event.EntityType == Events.ENTITY_MESSAGE &&
+                event.EntityId == currentMessage.getId()) {
+
+            closeMessage(REQUEST_IMAGE_DELETED);
+        }
     }
 }
