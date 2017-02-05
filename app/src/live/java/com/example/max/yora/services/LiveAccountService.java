@@ -75,9 +75,9 @@ public class LiveAccountService extends BaseLiveService {
     public void loginWithLocalToken(final Account.LoginWithLocalTokenRequest request) {
         api.getAccount(new RetrofitCallbackPost<Account.LoginWithLocalTokenResponse>(Account.LoginWithLocalTokenResponse.class, bus) {
             @Override
-            protected void onResponse(Account.LoginWithLocalTokenResponse loginWithLocalTokenResponse) {
-                loginUser(loginWithLocalRegisterGcmFragmentTokenResponse);
-                super.onResponse(loginWithLocalTokenResponse);
+            protected void onResponse(Account.LoginWithLocalTokenResponse response) {
+                loginUser(response);
+                super.onResponse(response);
             }
         });
     }
@@ -130,7 +130,9 @@ public class LiveAccountService extends BaseLiveService {
         api.loginWithExternalToken(request, new RetrofitCallbackPost<Account.LoginWithExternalTokenResponse>(Account.LoginWithExternalTokenResponse.class, bus) {
             @Override
             protected void onResponse(Account.LoginWithExternalTokenResponse response) {
-                loginUser(response);
+                if (response.didSucceed()) {
+                    loginUser(response);
+                }
                 super.onResponse(response);
             }
         });
@@ -141,7 +143,9 @@ public class LiveAccountService extends BaseLiveService {
         api.registerExternal(request, new RetrofitCallbackPost<Account.RegisterWithExternalTokenResponse>(Account.RegisterWithExternalTokenResponse.class, bus) {
             @Override
             protected void onResponse(Account.RegisterWithExternalTokenResponse response) {
-                loginUser(response);
+                if (response.didSucceed()) {
+                    loginUser(response);
+                }
                 super.onResponse(response);
             }
         });
@@ -151,7 +155,6 @@ public class LiveAccountService extends BaseLiveService {
     public void registerGcm(Account.UpdateGcmRegistrationRequest request) {
         api.updateGcmRegistration(request, new RetrofitCallbackPost<>(Account.UpdateGcmRegistrationResponse.class, bus));
     }
-
 
 
     private void loginUser(Account.UserResponse response) {
